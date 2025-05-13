@@ -1,0 +1,37 @@
+defaults:
+  - default
+  - _self_
+
+# checkpoint
+checkpoint_path: '../sft_policy/small/easy/policy.pt'
+save_path: 'logs/filtered_9Feb'
+anchor_path: '../sft_policy/small/easy/policy.pt'
+load_temperature_states: False
+
+# env
+env_name: aws_env
+env_load_path: ''
+seed: 201
+port_number: 9000
+num_envs: 64
+num_eval_envs: 32
+train_log_every: 4
+log_every: 1
+max_conversation_length: 10
+env_type: easy
+
+# training hypeparameters
+rollout_size: 128 #number of rollout trajectories for each update
+batch_size: 2
+iterations: 500 #total number of iterations
+epochs: 50 #number of epochs for the critic each iteration
+actor_epochs: 3 #number of epochs for the actor each iteration
+grad_accum_steps: 64
+lm_lr: 1e-5
+critic_lr: 2e-5
+kl_weight: 0.5
+
+# wandb logging
+use_wandb: True
+project_name: 'archer_aws'
+run_name: 'filtered-online-9Feb'

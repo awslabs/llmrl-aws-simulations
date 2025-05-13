@@ -1,0 +1,48 @@
+#cache directory of transformer
+cache_dir: ''
+
+#token
+huggingface_token: ""
+
+
+policy_lm: "gpt2"
+critic_lm: "roberta-base"
+agent_type: "online_filteredbc"
+use_baseline: False
+use_lora: False
+use_lora_for_critic: False
+max_new_tokens: 64
+max_length_tokenizer: 948
+use_bfloat16: True
+save_freq: 20
+eval_freq: 2
+eos_str: "\n"
+log_env_stats: True
+use_better_transformer: False
+attn_implementation: "sdpa"
+
+#training hyperparameters
+capacity: 100000 #replay buffer size
+rollout_size: 128 #number of rollout trajectories for each update
+eval_size: 32 #number of trajectories for evaluation
+batch_size: 8
+iterations: 200 #total number of iterations
+epochs: 50 #number of epochs for the critic each iteration
+actor_epochs: 3 #number of epochs for the actor each iteration
+warmup_iter: 10
+grad_accum_steps: 32
+do_sample: True
+temp_start: 1.0
+temp_end: 1.0
+temp_steps: 1.0
+eval_temperature: 0.1
+beam_size: 1
+lm_lr: 1e-5
+critic_lr: 2e-5
+env_idx: null #set to null if don't want to reset to a specific environment
+gamma: 0.95 #discount factor
+tau: 0.1 #soft update parameter
+max_grad_norm: 1.0
+quantile: 0.7
+
+use_wandb: True

@@ -1,0 +1,47 @@
+#cache directory of transformer
+cache_dir: ''
+
+#token
+huggingface_token: ""
+
+
+policy_lm: "gpt2" # Model to use for the policy
+critic_lm: "roberta-base" # Model to use for the critic
+agent_type: "archer" # Algorithm name
+use_baseline: False # Use baseline for actor loss, this parameter is always false, i.e., we do  not use  a baseline.
+use_lora: False # Use LORA for the agent
+use_lora_for_critic: False # Use LORA for the critic
+max_new_tokens: 64 # Maximum number of tokens to generate per action
+max_length_tokenizer: 948 # Maximum number of tokens to keep in history during training
+use_bfloat16: True
+sample_during_eval: False # Whether to sample during evaluation or do greedy decoding
+save_freq: 20
+eval_freq: 2
+eos_str: "\n"
+add_eos_str_to_data: True # EOS string should be added to the actions in the data.
+log_env_stats: True # If environment statistics should be logged during training and evaluation.
+use_better_transformer: False # For faster inference during training, we only ran experiments with False.
+attn_implementation: "sdpa" # Attention implementation to use for the LLM.
+
+#training hyperparameters
+capacity: 100000 # Replay buffer size
+rollout_size: 128 # Number of rollout trajectories for each update
+eval_size: 8 # Number of trajectories for evaluation
+batch_size: 2
+iterations: 100 # Total number of iterations
+epochs: 50 # Number of epochs for the critic each iteration
+actor_epochs: 3 # Number of epochs for the actor each iteration
+warmup_iter: 20 # Iterations before which we update the actor
+grad_accum_steps: 32 # Gradient accumulation steps --> Effective batch size is grad_accum_steps x batch_size
+do_sample: True # If we should sample or do greedy decoding during evaluation.
+temp_start: 1.0 # Initial policy temperature for data collection during training
+temp_end: 1.0 # Final policy temperature for data collection during training
+temp_steps: 1 # Number of steps to decay from temp_start to temp_end.
+lm_lr: 5e-5 # Learning rate for the LLM
+critic_lr: 1e-4 # Learning rate for the critic
+env_idx: null
+gamma: 0.95 #discount factor
+tau: 0.1 # soft update parameter
+max_grad_norm: 1.0
+
+use_wandb: True

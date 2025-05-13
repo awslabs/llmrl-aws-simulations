@@ -1,0 +1,47 @@
+#cache directory of transformer
+cache_dir: ""
+
+#token
+huggingface_token: ""
+
+
+policy_lm: "gpt2"
+critic_lm: "roberta-base"
+agent_type: "BC"
+use_baseline: False # This is ignored for SFT
+use_lora: False # If to use LORA for fine-tuning the LLM
+quantization: NULL # Quantization for training
+use_better_transformer: False # Better transformer for fast inference, was always set to false.
+max_new_tokens: 64 # How many new tokens should the policy generate.
+max_length_tokenizer: 948 # Number of tokens to be stored in history (state).
+use_bfloat16: True
+save_freq: 20
+eval_freq: 2
+eos_str: "\n"
+add_eos_str_to_data: True # If to add the eos string to the data or not
+log_env_stats: True # Log all env statistics obtained during evaluation
+
+
+#training hyperparameters
+capacity: 100000 # replay buffer size
+rollout_size: 128 # number of trajectories collected before each training update -> not used during SFT.
+eval_size: 4 # number of trajectories used for evaluation
+batch_size: 8
+iterations: 200 # total number of iterations
+epochs: 50 # number of updates for the critic each iteration -> not used during training
+actor_epochs: 3 # number of updates for the actor each iteration
+grad_accum_steps: 32 # Gradient accumulation steps --> Effective batch size is grad_accum_steps x batch_size
+do_sample: True # Whether to sample during evaluation or do greedy decoding.
+temperature: 1.0 # Temperature during training data collection -> Not used during SFT.
+critic_lr: 1e-5 # Critic learning rate -> Not used during SFT.
+lm_lr: 5e-5 # LLM (policy) learning rate
+env_idx: null
+gamma: 0.95 # discount factor
+tau: 0.1 # soft update parameter
+max_grad_norm: 1.0
+warmup_iter: 0
+attn_implementation: sdpa
+lora_rank: 16
+lora_alpha: 32
+
+use_wandb: True

@@ -1,0 +1,37 @@
+defaults:
+  - default
+  - _self_
+
+# checkpoint
+checkpoint_path: '../sft_policy/small/easy/policy.pt'
+save_path: 'logs/archer_9Feb'
+anchor_path: '../sft_policy/small/easy/policy.pt'
+load_temperature_states: False
+
+# env
+env_name: aws_env
+env_load_path: ''
+seed: 201
+port_number: 9000
+num_envs: 64 # Number of parallel envs used for data collection during training
+num_eval_envs: 32 # Number of parallel envs used for evaluation
+train_log_every: 4 # log frequency for training metrics
+log_every: 1  # log frequency for evaluation and rollout metrics
+max_conversation_length: 10 # Conversation length after which the account state is reset.
+env_type: easy #  Environment type: [easy, medium, hard]
+
+# training hypeparameters
+rollout_size: 128 # number of trajectories to collect before each update
+batch_size: 2
+iterations: 500 # total number of iterations
+epochs: 50 # number of critic updates per iteration
+actor_epochs: 3 # number of actor updates per iteration
+grad_accum_steps: 64 # Gradient accumulation steps --> Effective batch size is grad_accum_steps x batch_size
+lm_lr: 1e-5 # Learning rate for the LLM
+critic_lr: 2e-5 # Learning rate for the critic
+kl_weight: 0.0 # Coefficient for KL penalty
+
+# wandb logging
+use_wandb: True
+project_name: 'archer_aws'
+run_name: 'aws-online-9Feb'

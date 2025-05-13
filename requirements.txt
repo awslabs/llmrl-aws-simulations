@@ -1,0 +1,13 @@
+moto[ec2,s3,all, server]
+numpy
+tqdm
+transformers==4.42.0
+torch<2.6.0
+accelerate
+peft==0.10.0
+wandb
+omegaconf
+hydra-core
+black
+orjson
+optimum

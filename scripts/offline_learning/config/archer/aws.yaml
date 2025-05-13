@@ -1,0 +1,35 @@
+defaults:
+  - default
+  - _self_
+
+# checkpoint
+checkpoint_path: '../sft_policy/small/policy.pt'
+save_path: 'logs/archer_offline_9Feb'
+anchor_path: '../sft_policy/small/policy.pt'
+dataset_path: 'offline_data/offline_data.pt'
+
+# env
+env_name: aws_env
+env_load_path: ''
+seed: 101
+num_envs: 4
+port_number: 5000
+num_eval_envs: 32 # Number of parallel envs used for evaluation
+log_every: 1 # log frequency for evaluation and rollout metrics
+max_conversation_length: 10 # Conversation length after which the account state is reset.
+
+# training hyperparameters
+rollout_size: 128 # number of rollout trajectories before each update -> ignored for offline RL
+batch_size: 2
+iterations: 200 # total number of iterations
+epochs: 50 # number of critic updates per iteration
+actor_epochs: 3 # number of actor updates per iteration
+grad_accum_steps: 32 # Gradient accumulation steps --> Effective batch size is grad_accum_steps x batch_size
+lm_lr: 1e-5 # Learning rate for the LLM
+critic_lr: 2e-5 # Learning rate for the critic
+kl_weight: 0.0 # Coefficient for KL penalty
+
+# wandb logging
+use_wandb: True
+project_name: 'offlineRLAWS'
+run_name: 'aws-online-9Feb'
